@@ -1,0 +1,21 @@
+<!-- app/templates/sponsor/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center">Sponsor Dashboard</h2>
+<div class="text-center">
+    <a href="{{ url_for('create_campaign') }}" class="btn btn-primary">Create New Campaign</a>
+</div>
+<div class="mt-4">
+    <h4>Your Campaigns</h4>
+    <ul class="list-group">
+        {% for campaign in campaigns %}
+            <li class="list-group-item">
+                <h5>{{ campaign.name }}</h5>
+                <p>{{ campaign.description }}</p>
+                <span class="badge badge-secondary">{{ campaign.visibility }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

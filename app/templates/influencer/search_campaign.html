@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Search Campaigns</h2>
+    <form method="POST" action="{{ url_for('search_campaigns') }}">
+        <div class="form-group">
+            <label for="search_query">Search Query:</label>
+            <input type="text" class="form-control" id="search_query" name="search_query" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if campaigns %}
+    <h3 class="mt-4">Search Results:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Budget</th>
+                <th>Visibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for campaign in campaigns %}
+            <tr>
+                <td>{{ campaign.name }}</td>
+                <td>{{ campaign.description }}</td>
+                <td>{{ campaign.budget }}</td>
+                <td>{{ campaign.visibility }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

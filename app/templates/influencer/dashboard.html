@@ -1,0 +1,21 @@
+<!-- app/templates/influencer/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center">Influencer Dashboard</h2>
+<div class="text-center">
+    <a href="{{ url_for('search_campaigns') }}" class="btn btn-primary">Search Campaigns</a>
+</div>
+<div class="mt-4">
+    <h4>Your Ad Requests</h4>
+    <ul class="list-group">
+        {% for ad_request in ad_requests %}
+            <li class="list-group-item">
+                <h5>Campaign: {{ ad_request.campaign.name }}</h5>
+                <p>Payment: {{ ad_request.payment_amount }}</p>
+                <span class="badge badge-warning">{{ ad_request.status }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Influencer Registration</h2>
+    <form method="POST" action="{{ url_for('influencer_register') }}">
+        <!-- Location and Age Fields -->
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" id="country" name="country" required>
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" class="form-control" id="state" name="state" required>
+        </div>
+        <div class="form-group">
+            <label for="region">Region:</label>
+            <input type="text" class="form-control" id="region" name="region" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control" id="age" name="age" required>
+        </div>
+
+        <!-- Influencer Details -->
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="form-group">
+            <label for="bio">Bio:</label>
+            <textarea class="form-control" id="bio" name="bio" rows="3" required></textarea>
+        </div>
+
+        <!-- Multi-select Platforms -->
+        <div class="form-group">
+            <label>Active Platforms:</label><br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="platforms" id="platform_instagram" value="Instagram" onchange="showPlatformFields()">
+                <label class="form-check-label" for="platform_instagram">Instagram</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="platforms" id="platform_youtube" value="YouTube" onchange="showPlatformFields()">
+                <label class="form-check-label" for="platform_youtube">YouTube</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="platforms" id="platform_twitter" value="Twitter" onchange="showPlatformFields()">
+                <label class="form-check-label" for="platform_twitter">Twitter</label>
+            </div>
+            <!-- Add other platforms as needed -->
+        </div>
+
+        <!-- Platform-specific Fields -->
+        <div id="instagramFields" style="display:none;">
+            <div class="form-group">
+                <label for="instagram_followers">Instagram Followers:</label>
+                <input type="number" class="form-control" id="instagram_followers" name="instagram_followers">
+            </div>
+            <div class="form-group">
+                <label for="avg_likes_instagram">Average Likes per Post:</label>
+                <input type="number" class="form-control" id="avg_likes_instagram" name="avg_likes_instagram">
+            </div>
+            <div class="form-group">
+                <label for="avg_comments_instagram">Average Comments per Post:</label>
+                <input type="number" class="form-control" id="avg_comments_instagram" name="avg_comments_instagram">
+            </div>
+        </div>
+
+        <div id="youtubeFields" style="display:none;">
+            <div class="form-group">
+                <label for="youtube_channel">YouTube Channel URL:</label>
+                <input type="url" class="form-control" id="youtube_channel" name="youtube_channel">
+            </div>
+            <div class="form-group">
+                <label for="youtube_subscribers">YouTube Subscribers:</label>
+                <input type="number" class="form-control" id="youtube_subscribers" name="youtube_subscribers">
+            </div>
+            <div class="form-group">
+                <label for="avg_views_youtube">Average Views per Video:</label>
+                <input type="number" class="form-control" id="avg_views_youtube" name="avg_views_youtube">
+            </div>
+        </div>
+
+        <div id="twitterFields" style="display:none;">
+            <div class="form-group">
+                <label for="twitter_followers">Twitter Followers:</label>
+                <input type="number" class="form-control" id="twitter_followers" name="twitter_followers">
+            </div>
+            <div class="form-group">
+                <label for="avg_retweets">Average Retweets per Tweet:</label>
+                <input type="number" class="form-control" id="avg_retweets" name="avg_retweets">
+            </div>
+            <div class="form-group">
+                <label for="avg_likes_twitter">Average Likes per Tweet:</label>
+                <input type="number" class="form-control" id="avg_likes_twitter" name="avg_likes_twitter">
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select class="form-control" id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <!-- Preferred Collaboration Types -->
+        <div class="form-group">
+            <label>Preferred Collaboration Types:</label><br>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="collaboration_type" id="sponsored_posts" value="Sponsored Posts" required>
+                <label class="form-check-label" for="sponsored_posts">Sponsored Posts</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="collaboration_type" id="product_reviews" value="Product Reviews">
+                <label class="form-check-label" for="product_reviews">Product Reviews</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="collaboration_type" id="affiliate_marketing" value="Affiliate Marketing">
+                <label class="form-check-label" for="affiliate_marketing">Affiliate Marketing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="collaboration_type" id="brand_ambassadorship" value="Brand Ambassadorship">
+                <label class="form-check-label" for="brand_ambassadorship">Brand Ambassadorship</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="collaboration_type" id="giveaways" value="Giveaways">
+                <label class="form-check-label" for="giveaways">Giveaways</label>
+            </div>
+        </div>
+
+        <!-- Availability for Campaigns -->
+        <div class="form-group">
+            <label>Availability for Campaigns:</label><br>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="availability" id="less_than_1_week" value="< 1 Week" required>
+                <label class="form-check-label" for="less_than_1_week">&lt; 1 Week</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="availability" id="less_than_1_month" value="< 1 Month">
+                <label class="form-check-label" for="less_than_1_month">&lt; 1 Month</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="availability" id="2_to_3_weeks" value="2-3 Weeks">
+                <label class="form-check-label" for="2_to_3_weeks">2-3 Weeks</label>
+            </div>
+        </div>
+
+        <!-- Optional Website URL -->
+        <div class="form-group">
+            <label for="website_url">Website URL (optional):</label>
+            <input type="url" class="form-control" id="website_url" name="website_url">
+        </div>
+
+        <!-- Preferred Brands -->
+        <div class="form-group">
+            <label for="preferred_brands">Preferred Brands:</label>
+            <input type="text" class="form-control" id="preferred_brands" name="preferred_brands" required>
+            <small class="form-text text-muted">Comma-separated list of brands you prefer to work with.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+    <div class="text-center mt-3">
+        <p>Already have an account? <a href="{{ url_for('influencer_login') }}">Login here</a>.</p>
+    </div>
+</div>
+
+<script>
+    function showPlatformFields() {
+        // Hide all platform-specific fields
+        document.getElementById('instagramFields').style.display = 'none';
+        document.getElementById('youtubeFields').style.display = 'none';
+        document.getElementById('twitterFields').style.display = 'none';
+
+        // Get selected platforms
+        var selectedPlatforms = document.getElementsByName('platforms');
+        for (var i = 0; i < selectedPlatforms.length; i++) {
+            if (selectedPlatforms[i].checked) {
+                var platform = selectedPlatforms[i].value;
+                if (platform === 'Instagram') {
+                    document.getElementById('instagramFields').style.display = 'block';
+                } else if (platform === 'YouTube') {
+                    document.getElementById('youtubeFields').style.display = 'block';
+                } else if (platform === 'Twitter') {
+                    document.getElementById('twitterFields').style.display = 'block';
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

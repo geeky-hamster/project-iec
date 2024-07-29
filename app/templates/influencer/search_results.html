@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Search Results</h2>
+    {% if campaigns %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Budget</th>
+                    <th>Visibility</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in campaigns %}
+                <tr>
+                    <td>{{ campaign.name }}</td>
+                    <td>{{ campaign.description }}</td>
+                    <td>{{ campaign.budget }}</td>
+                    <td>{{ campaign.visibility }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No campaigns found matching your search criteria.</p>
+    {% endif %}
+    <a href="{{ url_for('search_campaigns') }}" class="btn btn-secondary">Back to Search</a>
+</div>
+{% endblock %}
